@@ -1,0 +1,41 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+.env.*
+
+# Data & models (DVC tracked later)
+data/raw/
+data/processed/
+data/chunks/
+embeddings/
+indexes/
+models/
+
+# ML experiment tracking
+mlruns/
+mlartifacts/
+
+# Notebooks
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Docker
+docker/*.env
