@@ -1,0 +1,64 @@
+[project]
+name = "research-companion"
+version = "0.1.0"
+description = "AI research assistant with hybrid search, re-ranking, and RAG"
+requires-python = ">=3.11"
+
+dependencies = [
+    # ── Phase 1: RAG core ─────────────────────────────────────────────────────
+    "pymupdf==1.24.5",
+    "langchain==0.2.16",
+    "langchain-community==0.2.17",
+    "chromadb==0.5.5",
+    "sentence-transformers==3.0.1",
+    "rank-bm25==0.2.2",
+    "python-dotenv==1.0.1",
+    "gradio==4.42.0",
+
+    # ── LLM providers (install all, use via .env switch) ──────────────────────
+    "groq==0.10.0",
+    "openai==1.40.0",
+    "ollama==0.3.1",
+    "langchain-groq==0.1.9",
+    "langchain-ollama==0.1.3",
+    "langchain-openai==0.1.23",
+
+    # ── Phase 3: Agent ────────────────────────────────────────────────────────
+    "langgraph==0.2.14",
+
+    # ── Phase 4: Evaluation ───────────────────────────────────────────────────
+    "ragas==0.1.21",
+    "datasets==2.21.0",
+
+    # ── Phase 5: MLOps ────────────────────────────────────────────────────────
+    "mlflow==2.15.1",
+    "dvc==3.53.1",
+    "dvc-gdrive==3.0.1",
+
+    # ── Utilities ─────────────────────────────────────────────────────────────
+    "pydantic==2.8.2",
+    "tqdm==4.66.5",
+    "loguru==0.7.2",
+]
+
+[project.optional-dependencies]
+# Install only phase 1 deps for faster setup during early development:
+#   uv sync --extra phase1
+phase1 = [
+    "pymupdf==1.24.5",
+    "langchain==0.2.16",
+    "langchain-community==0.2.17",
+    "langchain-groq==0.1.9",
+    "chromadb==0.5.5",
+    "sentence-transformers==3.0.1",
+    "rank-bm25==0.2.2",
+    "python-dotenv==1.0.1",
+    "gradio==4.42.0",
+    "groq==0.10.0",
+    "loguru==0.7.2",
+]
+
+[tool.uv]
+# uv creates .venv in the project root by default.
+# This tells uv to use a flat layout (no src/ install complications).
+package = false

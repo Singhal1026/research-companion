@@ -51,6 +51,15 @@ RERANKER_MODEL: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 # ── Chroma collection name ────────────────────────────────────────────────────
 CHROMA_COLLECTION: str = "research_papers"
 
+# ── Router ────────────────────────────────────────────────────────────────────
+# Keywords that short-circuit the LLM classification call (faster, cheaper).
+# If a query matches one of these patterns, the route is decided immediately
+# without spending an API call on classification.
+ROUTER_AGENT_KEYWORDS:  tuple = ("compare", "difference between", "contrast",
+                                  "versus", "vs ", "how do .* differ")
+ROUTER_DIRECT_KEYWORDS: tuple = ("what is", "what are", "define ", "explain ",
+                                  "who invented", "when was")
+
 # ── Validation ────────────────────────────────────────────────────────────────
 def validate() -> None:
     """Call at app startup to catch missing config early."""
