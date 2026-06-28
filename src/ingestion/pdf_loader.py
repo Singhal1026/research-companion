@@ -215,23 +215,25 @@ class PDFLoader:
 if __name__ == "__main__":
     import sys
     if len(sys.argv) < 2:
-        print("Usage: python -m src.ingestion.pdf_loader path/to/paper.pdf")
+        print("Usage: python -m src.ingestion.pdf_loader path/to/papers")
         sys.exit(1)
 
     loader = PDFLoader()
-    doc    = loader.load_pdf(sys.argv[1])
+    docs    = loader.load_folder(sys.argv[1])
 
-    if doc is None:
-        print("Failed to load PDF.")
-        sys.exit(1)
+    for doc in docs:
 
-    print(f"\nFile       : {doc.file_name}")
-    print(f"Title      : {doc.title}")
-    print(f"Author     : {doc.metadata.get('author')}")
-    print(f"Pages      : {doc.page_count}/{doc.total_pages}")
-    print(f"Total chars: {len(doc.full_text):,}")
-    print(f"Is empty   : {doc.is_empty}")
-    if doc.failed_pages:
-        print(f"Failed pages: {doc.failed_pages}")
-    print("\n--- First 500 chars ---")
-    print(doc.full_text[:500])
+        if doc is None:
+            print("Failed to load PDF.")
+            sys.exit(1)
+
+        print(f"\nFile       : {doc.file_name}")
+        print(f"Title      : {doc.title}")
+        print(f"Author     : {doc.metadata.get('author')}")
+        print(f"Pages      : {doc.page_count}/{doc.total_pages}")
+        print(f"Total chars: {len(doc.full_text):,}")
+        print(f"Is empty   : {doc.is_empty}")
+        if doc.failed_pages:
+            print(f"Failed pages: {doc.failed_pages}")
+        print("\n--- First 500 chars ---")
+        print(doc.full_text[:500])
