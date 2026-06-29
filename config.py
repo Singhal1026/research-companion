@@ -37,6 +37,13 @@ SUPPORTED_PROVIDERS = ("groq", "ollama", "openai")
 # ── Embeddings ────────────────────────────────────────────────────────────────
 EMBEDDING_MODEL: str = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
 
+# Batch size for sentence-transformers encode() calls.
+# 64 is a safe default for CPU. Raise to 128-256 if you have a GPU.
+EMBEDDING_BATCH_SIZE: int = int(os.getenv("EMBEDDING_BATCH_SIZE", "64"))
+
+# Path where the BM25 index is serialised to disk.
+BM25_INDEX_PATH: str = str(INDEXES_DIR / "bm25.pkl")
+
 # ── Chunking ──────────────────────────────────────────────────────────────────
 CHUNK_SIZE:    int = 500
 CHUNK_OVERLAP: int = 100
