@@ -49,10 +49,20 @@ CHUNK_SIZE:    int = 500
 CHUNK_OVERLAP: int = 100
 
 # ── Retrieval ─────────────────────────────────────────────────────────────────
+# How many results each of dense + BM25 independently retrieves before fusion.
 RETRIEVAL_TOP_K: int = int(os.getenv("RETRIEVAL_TOP_K", "20"))
-RERANK_TOP_K:    int = int(os.getenv("RERANK_TOP_K", "4"))
 
-# Cross-encoder model for re-ranking (runs locally)
+# How many fused results survive after RRF, before re-ranking.
+RRF_TOP_K: int = int(os.getenv("RRF_TOP_K", "20"))
+
+# Final results passed to the LLM after cross-encoder re-ranking.
+RERANK_TOP_K: int = int(os.getenv("RERANK_TOP_K", "4"))
+
+# RRF constant k — controls how much rank position matters vs score magnitude.
+# 60 is the standard from the original RRF paper (Cormack et al. 2009).
+RRF_K: int = 60
+
+# Cross-encoder model for re-ranking (runs locally, CPU is fine)
 RERANKER_MODEL: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 
 # ── Chroma collection name ────────────────────────────────────────────────────
