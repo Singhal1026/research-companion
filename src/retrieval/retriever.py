@@ -142,6 +142,37 @@ class DenseRetriever:
         Convert ChromaDB query results into RetrievedChunk objects.
 
         ChromaDB returns nested lists (one list per query — we only send one).
+        results = {
+            "ids": [
+                ["chunk_2", "chunk_1"]
+            ],
+
+            "documents": [
+                [
+                    "The transformer encoder has 12 layers...",
+                    "BERT uses masked language modeling..."
+                ]
+            ],
+
+            "metadatas": [
+                [
+                    {
+                        "title": "BERT",
+                        "source": "bert.pdf",
+                        "page_number": 5
+                    },
+                    {
+                        "title": "BERT",
+                        "source": "bert.pdf",
+                        "page_number": 3
+                    }
+                ]
+            ],
+
+            "distances": [
+                [0.12, 0.20]
+            ]
+        }
         Distances are converted to similarities: similarity = 1 - distance.
         """
         ids       = results["ids"][0]

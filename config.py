@@ -25,8 +25,8 @@ for _p in [DATA_RAW, DATA_PROCESSED, DATA_CHUNKS, EMBEDDINGS_DIR, INDEXES_DIR]:
     _p.mkdir(parents=True, exist_ok=True)
 
 # ── LLM provider ─────────────────────────────────────────────────────────────
-LLM_PROVIDER: str = os.getenv("LLM_PROVIDER", "groq").lower()
-LLM_MODEL:    str = os.getenv("LLM_MODEL", "llama-3.1-8b-instant")
+LLM_PROVIDER: str = os.getenv("LLM_PROVIDER", "ollama").lower()
+LLM_MODEL:    str = os.getenv("LLM_MODEL", "qwen2.5:7b-instruct")
 
 GROQ_API_KEY:    str = os.getenv("GROQ_API_KEY", "")
 OPENAI_API_KEY:  str = os.getenv("OPENAI_API_KEY", "")
@@ -76,6 +76,15 @@ ROUTER_AGENT_KEYWORDS:  tuple = ("compare", "difference between", "contrast",
                                   "versus", "vs ", "how do .* differ")
 ROUTER_DIRECT_KEYWORDS: tuple = ("what is", "what are", "define ", "explain ",
                                   "who invented", "when was")
+
+# ── Generator ────────────────────────────────────────────────────────────────
+# Approximate token budget for retrieved context passed to the LLM.
+# Leaves room for system prompt (~200 tokens) + question (~50) + answer (1024).
+# Total context window for llama-3.1-8b is 8192 tokens.
+CONTEXT_TOKEN_BUDGET: int = int(os.getenv("CONTEXT_TOKEN_BUDGET", "3000"))
+
+# 1 token ≈ 4 chars — used for rough token counting without a tokeniser.
+CHARS_PER_TOKEN: int = 4
 
 # ── Validation ────────────────────────────────────────────────────────────────
 def validate() -> None:
